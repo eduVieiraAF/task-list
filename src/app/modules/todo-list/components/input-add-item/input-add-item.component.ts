@@ -11,7 +11,7 @@ import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChi
 export class InputAddItemComponent {
   #cdr = inject(ChangeDetectorRef);
   @ViewChild('inputValue') public inputValue!: ElementRef;
-  @Output() public outputListItems = new EventEmitter<TodoListItem>();
+  @Output() public outputListAddItems = new EventEmitter<TodoListItem>();
 
   public focusAndAddItem(value: string) {
     if (value) {
@@ -21,7 +21,7 @@ export class InputAddItemComponent {
 
       this.#cdr.detectChanges();
       this.inputValue.nativeElement.value = '';
-      this.outputListItems.emit({
+      this.outputListAddItems.emit({
         id,
         checked : false,
         value
