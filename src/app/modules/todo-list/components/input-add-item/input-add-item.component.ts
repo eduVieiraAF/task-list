@@ -1,17 +1,20 @@
+import { NgClass } from '@angular/common';
 import { TodoListItem } from './../../interface/todoListItem.interface';
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 
 @Component({
   selector: 'app-input-add-item',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './input-add-item.component.html',
   styleUrl: './input-add-item.component.scss'
 })
 export class InputAddItemComponent {
   #cdr = inject(ChangeDetectorRef);
   @ViewChild('inputValue') public inputValue!: ElementRef;
-  @Output() public outputListItems = new EventEmitter<TodoListItem>();
+
+  @Input({ required: true }) public inputListItems!: TodoListItem[];
+  @Output() public outputListAddItems = new EventEmitter<TodoListItem>();
 
   public focusAndAddItem(value: string) {
     if (value) {
@@ -21,7 +24,7 @@ export class InputAddItemComponent {
 
       this.#cdr.detectChanges();
       this.inputValue.nativeElement.value = '';
-      this.outputListItems.emit({
+      this.outputListAddItems.emit({
         id,
         checked : false,
         value
