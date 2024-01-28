@@ -20,9 +20,41 @@
     }
   }
 
+  main.container {
+    height: calc(100vh - 130px - 90px);
+    height: calc(100dvh - 130px - 90px);
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--black-010);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary-010);
+      border-radius: 50px;
+    }
+  }
+
   input {
     &:focus::placeholder {
       visibility: hidden;
     }
+  }
+
+  footer {
+    height: 90px;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-top: 2px groove var(--primary-010);
+    border-radius: 7px;
   }
 }

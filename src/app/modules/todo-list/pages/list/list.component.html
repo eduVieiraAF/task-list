@@ -1,26 +1,32 @@
 @if (!getListItems().length) {
-  <div class="container">
-    <img
+<div class="container">
+  <img
     src="assets/imgs/task-list-null.png"
     alt="Empty list"
     title="Your list is empty"
     loading="eager"
-    />
+  />
 
-    @if(addItem()){
-      <button class="btn btn-primary" (click)="addItem.set(false)">
-        Add new task
-      </button>
-    } @else {
-      <app-input-add-item
-      [inputListItems]="getListItems()"
-      (outputListAddItems)="getInputAndAddItem($event)"
-      />
-    }
-  </div>
-} @else {
+  @if(addItem()){
+  <button class="btn btn-primary" (click)="addItem.set(false)">
+    Add new task
+  </button>
+  } @else {
   <app-input-add-item
-      [inputListItems]="getListItems()"
-      (outputListAddItems)="getInputAndAddItem($event)"
-      />
+    [inputListItems]="getListItems()"
+    (outputListAddItems)="getInputAndAddItem($event)"
+  />
+  }
+</div>
+} @else {
+<app-input-add-item
+  [inputListItems]="getListItems()"
+  (outputListAddItems)="getInputAndAddItem($event)"
+/>
+<main class="container">
+
+</main>
+<footer>
+  <button class="btn btn-danger" (click)="deleteAllItems()">Delete all tasks</button>
+</footer>
 }
