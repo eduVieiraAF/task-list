@@ -17,7 +17,9 @@
     align-items: center;
     justify-content: center;
 
-    border-bottom: 2px solid var(--primary-010);
+    border-bottom: 2px groove var(--primary-010);
+    border-radius: 7px;
+    margin-bottom: 12px;
   }
 
   .remove-margin-bottom {
