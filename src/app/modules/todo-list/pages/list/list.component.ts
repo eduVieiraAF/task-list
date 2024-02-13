@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { InputAddItemComponent } from '../../components/input-add-item/input-add-item.component';
 import { TodoListItem } from '../../interface/todoListItem.interface';
 import { InputListItemComponent } from '../../components/input-list-item/input-list-item.component';
+import { LocalStorageEnum } from '../../enum/localStorage.enum';
 
 
 @Component({
@@ -19,13 +20,20 @@ export class ListComponent {
 
   #parseItems() {
     return JSON.parse(
-      localStorage.getItem('@my-list') || '[]'
+      localStorage.getItem(LocalStorageEnum.MY_LIST) || '[]'
+    )
+  }
+
+  #updateLocalStorage() {
+    return localStorage.setItem(
+      LocalStorageEnum.MY_LIST,
+      JSON.stringify(this.#setListItems())
     )
   }
 
   public getInputAndAddItem(value: TodoListItem) {
     localStorage.setItem(
-      '@my-list',
+      LocalStorageEnum.MY_LIST,
       JSON.stringify([...this.#setListItems(), value])
     )
 
@@ -56,7 +64,7 @@ export class ListComponent {
       return oldValue
     })
 
-    return localStorage.setItem('@my-list', JSON.stringify(this.#setListItems()));
+    return this.#updateLocalStorage();
   }
 
 public updateItemText(newItem: { value: string, id: string }) {
@@ -74,19 +82,19 @@ public updateItemText(newItem: { value: string, id: string }) {
     return oldValue
   })
 
-  return localStorage.setItem('@my-list', JSON.stringify(this.#setListItems()));
+  return this.#updateLocalStorage();
 }
 
-  public deleteItemText(id: string) {
+  public deleteItem(id: string) {
     this.#setListItems.update((oldValue: TodoListItem[]) => {
       return oldValue.filter( (res) => res.id !== id )
     })
 
-    return localStorage.setItem('@my-list', JSON.stringify(this.#setListItems()));
+    return this.#updateLocalStorage();
   }
 
   public deleteAllItems() {
-    localStorage.removeItem('@my-list');
+    localStorage.removeItem(LocalStorageEnum.MY_LIST);
     return this.#setListItems.set(this.#parseItems());
   }
 }
