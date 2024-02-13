@@ -23,10 +23,33 @@
   [inputListItems]="getListItems()"
   (outputListAddItems)="getInputAndAddItem($event)"
 />
-<main class="container">
 
+<main class="container">
+  @if(listItemsStage('pending').length) {
+    <h2>Pending tasks</h2>
+    <app-input-list-item
+      [inputListItems]="listItemsStage('pending')"
+      (outputUpdateItemCheckbox)="updateItemCheckbox($event)"
+      (outputUpdateItemText)="updateItemText($event)"
+      (outputDeleteItemText)="deleteItemText($event)"
+      >
+    </app-input-list-item>
+  }
+
+  @if(listItemsStage('completed').length) {
+    <h2>Completed tasks</h2>
+    <app-input-list-item
+      [inputListItems]="listItemsStage('completed')"
+      (outputUpdateItemCheckbox)="updateItemCheckbox($event)"
+      (outputUpdateItemText)="updateItemText($event)"
+      (outputDeleteItemText)="deleteItemText($event)"
+      >
+    </app-input-list-item>
+  }
 </main>
 <footer>
-  <button class="btn btn-danger" (click)="deleteAllItems()">Delete all tasks</button>
+  <button class="btn btn-danger" (click)="deleteAllItems()">
+    Delete all tasks
+  </button>
 </footer>
 }
